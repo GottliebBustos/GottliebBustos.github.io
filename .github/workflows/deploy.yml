@@ -24,11 +24,10 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22 # 1. ARREGLADO: Cambiado a 22 para eliminar la advertencia de obsolescencia
+          node-version: 22
 
       - name: Install dependencies
-        # 2. ARREGLADO: 'npm i' instala dependencias incluso si falta el archivo package-lock.json
-        run: npm install 
+        run: npm install
         
       - name: Build Astro
         run: npm run build
