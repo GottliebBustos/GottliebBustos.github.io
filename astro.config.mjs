@@ -5,7 +5,11 @@ import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
-   site: 'https://github.io',
-  base: '/GottliebBustos.github.io',
+  // 🟢 CORREGIDO: Tu URL completa de GitHub Pages
+  site: 'https://GottliebBustos.github.io',
+  
+  // 🟢 CORREGIDO: Al ser tu repositorio principal de usuario, va en la raíz '/'
+  base: '/',
+  
   integrations: [mdx(), sitemap(), tailwind()]
 });
