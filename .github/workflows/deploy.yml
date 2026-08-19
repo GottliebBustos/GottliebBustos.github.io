@@ -25,9 +25,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22
+          # 🚀 ESTO APAGA LA CACHÉ AUTOMÁTICA QUE CAUSA EL ERROR:
+          package-manager-cache: false 
 
       - name: Install dependencies
-        run: npm install
+        # 🛠️ Ahora sí correrá de forma directa e independiente
+        run: npm install 
         
       - name: Build Astro
         run: npm run build
