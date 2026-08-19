@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ main ] # Cambia a master si tu rama principal se llama así
+    branches: [ main ] 
 
 permissions:
   contents: read
@@ -20,15 +20,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm # Cambia a pnpm o yarn si usas otro gestor
+          node-version: 22 # 1. ARREGLADO: Cambiado a 22 para eliminar la advertencia de obsolescencia
+
       - name: Install dependencies
-        run: npm ci
+        # 2. ARREGLADO: 'npm i' instala dependencias incluso si falta el archivo package-lock.json
+        run: npm install 
+        
       - name: Build Astro
         run: npm run build
+        
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
