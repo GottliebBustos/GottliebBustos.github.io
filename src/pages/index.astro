@@ -102,58 +102,56 @@ const education = [
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title}</title>
   <meta name="description" content={description}>
-  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-<body>
+<body class="portfolio-body">
 
-  <header>
-    <nav>
-      <a href="#" class="nav-logo">Gottlieb Bustos S.</a>
-      <ul class="nav-links">
-        <li><a href="#experiencia">Experiencia</a></li>
-        <li><a href="#habilidades">Habilidades</a></li>
-        <li><a href="#formacion">Formación</a></li>
-      </ul>
-      <button class="theme-toggle" id="theme-btn" aria-label="Cambiar tema">
-        <i class="fa-solid fa-moon"></i> <span>Tema</span>
-      </button>
+  <header class="portfolio-header">
+    <nav class="portfolio-nav">
+      <a href="#" class="nav-brand">Gottlieb Bustos S.</a>
+      <div class="nav-links">
+        <a href="#experiencia">Experiencia</a>
+        <a href="#habilidades">Habilidades</a>
+        <a href="#formacion">Formación</a>
+      </div>
     </nav>
   </header>
 
-  <main>
-    <!-- Hero Section -->
-    <section class="hero container">
-      <span class="hero-badge">Ingeniero Civil en Informática</span>
-      <h1>Gottlieb Bustos Schulze</h1>
-      <p class="subtitle">Analítica de Datos · Control de Gestión TI · Dirección Estratégica</p>
-      <p class="hero-summary">{description}</p>
+  <div class="main-wrapper">
+    <!-- Hero -->
+    <section class="hero-block">
+      <div class="badge-wrapper">
+        <span class="hero-badge">Ingeniero Civil en Informática</span>
+      </div>
+      <h1 class="hero-name">Gottlieb Bustos Schulze</h1>
+      <h2 class="hero-role">Analítica de Datos · Control de Gestión TI · Dirección Estratégica</h2>
+      <p class="hero-desc">{description}</p>
 
-      <div class="contact-bar">
-        <a href={`mailto:${contact.email}`} class="contact-chip">
-          <i class="fa-solid fa-envelope"></i> {contact.email}
+      <div class="contact-grid">
+        <a href={`mailto:${contact.email}`} class="contact-pill">
+          <i class="fa-solid fa-envelope"></i> <span>{contact.email}</span>
         </a>
-        <a href={`tel:${contact.phone.replace(/\s+/g, '')}`} class="contact-chip">
-          <i class="fa-solid fa-phone"></i> {contact.phone}
+        <a href={`tel:${contact.phone.replace(/\s+/g, '')}`} class="contact-pill">
+          <i class="fa-solid fa-phone"></i> <span>{contact.phone}</span>
         </a>
-        <span class="contact-chip">
-          <i class="fa-solid fa-location-dot"></i> {contact.location}
+        <span class="contact-pill">
+          <i class="fa-solid fa-location-dot"></i> <span>{contact.location}</span>
         </span>
-        <span class="contact-chip">
-          <i class="fa-solid fa-language"></i> {contact.languages}
+        <span class="contact-pill">
+          <i class="fa-solid fa-language"></i> <span>{contact.languages}</span>
         </span>
       </div>
     </section>
 
-    <!-- Skills Section -->
-    <section class="container" id="habilidades">
-      <h2 class="section-title">Habilidades Clave</h2>
+    <!-- Habilidades -->
+    <section class="content-section" id="habilidades">
+      <h2 class="heading-decorated">Habilidades Clave</h2>
       <div class="skills-grid">
         {skills.map((skill) => (
-          <div class="skill-card">
+          <div class="skill-item">
             <i class={`fa-solid ${skill.icon}`}></i>
             <span>{skill.name}</span>
           </div>
@@ -161,17 +159,17 @@ const education = [
       </div>
     </section>
 
-    <!-- Experience Timeline -->
-    <section class="container" id="experiencia">
-      <h2 class="section-title">Experiencia Laboral</h2>
-      <div class="timeline">
+    <!-- Experiencia -->
+    <section class="content-section" id="experiencia">
+      <h2 class="heading-decorated">Experiencia Laboral</h2>
+      <div class="timeline-container">
         {experiences.map((exp) => (
-          <div class="timeline-item">
-            <div class="timeline-card">
-              <span class="timeline-date">{exp.period}</span>
-              <h3 class="timeline-title">{exp.role}</h3>
-              <p class="timeline-org">{exp.org}</p>
-              <ul class="timeline-list">
+          <div class="timeline-entry">
+            <div class="timeline-card-box">
+              <span class="timeline-badge">{exp.period}</span>
+              <h3 class="timeline-card-title">{exp.role}</h3>
+              <p class="timeline-card-org">{exp.org}</p>
+              <ul class="timeline-bullets">
                 {exp.achievements.map((item) => (
                   <li>{item}</li>
                 ))}
@@ -182,105 +180,54 @@ const education = [
       </div>
     </section>
 
-    <!-- Education & Certifications -->
-    <section class="container" id="formacion">
-      <h2 class="section-title">Formación Académica & Diplomados</h2>
-      <div class="edu-grid">
+    <!-- Formación -->
+    <section class="content-section" id="formacion">
+      <h2 class="heading-decorated">Formación Académica & Diplomados</h2>
+      <div class="edu-card-grid">
         {education.map((edu) => (
-          <div class="edu-card" style={edu.highlight ? "border-left: 4px solid var(--primary);" : ""}>
-            <div class="edu-year">{edu.year}</div>
-            <h3 class="edu-title">{edu.title}</h3>
-            <p class="edu-inst">{edu.inst}</p>
+          <div class={`edu-item-box ${edu.highlight ? 'edu-highlight' : ''}`}>
+            <span class="edu-item-year">{edu.year}</span>
+            <h3 class="edu-item-title">{edu.title}</h3>
+            <p class="edu-item-inst">{edu.inst}</p>
           </div>
         ))}
       </div>
     </section>
-  </main>
+  </div>
 
-  <footer>
+  <footer class="portfolio-footer">
     <p>© 2026 Gottlieb Bustos Schulze · Portafolio Profesional</p>
   </footer>
 
-  <script>
-    const themeBtn = document.getElementById('theme-btn');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    let isDark = prefersDark;
-
-    function applyTheme() {
-      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-      if (themeBtn) {
-        themeBtn.innerHTML = isDark 
-          ? '<i class="fa-solid fa-sun"></i> <span>Claro</span>' 
-          : '<i class="fa-solid fa-moon"></i> <span>Oscuro</span>';
-      }
-    }
-
-    applyTheme();
-
-    themeBtn?.addEventListener('click', () => {
-      isDark = !isDark;
-      applyTheme();
-    });
-  </script>
 </body>
 </html>
 
-<style>
-  :root {
-    --bg: #0f172a;
-    --card-bg: #1e293b;
-    --card-border: #334155;
-    --text: #f8fafc;
-    --text-muted: #94a3b8;
-    --primary: #38bdf8;
-    --primary-hover: #0284c7;
-    --accent: #818cf8;
-    --badge-bg: rgba(56, 189, 248, 0.1);
-    --badge-text: #38bdf8;
-    --timeline-line: #334155;
+<style is:global>
+  /* Reset estricto para evitar colisiones con layouts de Astro */
+  html, body.portfolio-body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: #0f172a !important;
+    color: #f8fafc !important;
+    font-family: 'Inter', sans-serif !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 
-  :global([data-theme="light"]) {
-    --bg: #f8fafc;
-    --card-bg: #ffffff;
-    --card-border: #e2e8f0;
-    --text: #0f172a;
-    --text-muted: #64748b;
-    --primary: #0284c7;
-    --primary-hover: #0369a1;
-    --accent: #6366f1;
-    --badge-bg: rgba(2, 132, 199, 0.1);
-    --badge-text: #0284c7;
-    --timeline-line: #cbd5e1;
+  *, *::before, *::after {
+    box-sizing: border-box !important;
   }
 
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Inter', sans-serif;
-  }
-
-  body {
-    background-color: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    transition: background-color 0.3s ease, color 0.3s ease;
-  }
-
-  header {
+  .portfolio-header {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.95);
+    border-bottom: 1px solid #334155;
     position: sticky;
     top: 0;
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--card-border);
-    z-index: 1000;
-  }
-  :global([data-theme="light"]) header {
-    background: rgba(248, 250, 252, 0.85);
+    z-index: 100;
   }
 
-  nav {
+  .portfolio-nav {
     max-width: 1100px;
     margin: 0 auto;
     padding: 1rem 1.5rem;
@@ -289,22 +236,20 @@ const education = [
     align-items: center;
   }
 
-  .nav-logo {
-    font-weight: 700;
+  .nav-brand {
     font-size: 1.15rem;
-    color: var(--primary);
+    font-weight: 700;
+    color: #38bdf8;
     text-decoration: none;
   }
 
   .nav-links {
     display: flex;
     gap: 1.5rem;
-    align-items: center;
-    list-style: none;
   }
 
   .nav-links a {
-    color: var(--text-muted);
+    color: #94a3b8;
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 500;
@@ -312,240 +257,241 @@ const education = [
   }
 
   .nav-links a:hover {
-    color: var(--primary);
+    color: #38bdf8;
   }
 
-  .theme-toggle {
-    background: none;
-    border: 1px solid var(--card-border);
-    color: var(--text);
-    padding: 0.4rem 0.75rem;
-    border-radius: 9999px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .container {
+  .main-wrapper {
     max-width: 1100px;
     margin: 0 auto;
-    padding: 3rem 1.5rem;
+    padding: 2.5rem 1.5rem;
+    display: block !important;
   }
 
-  .hero {
-    padding: 4rem 1.5rem 2rem;
-    text-align: center;
+  /* Hero */
+  .hero-block {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    margin-bottom: 3.5rem !important;
+    position: static !important;
+  }
+
+  .badge-wrapper {
+    margin-bottom: 1rem;
   }
 
   .hero-badge {
-    display: inline-block;
-    padding: 0.35rem 0.85rem;
-    background: var(--badge-bg);
-    color: var(--badge-text);
-    border-radius: 9999px;
+    background: rgba(56, 189, 248, 0.12);
+    color: #38bdf8;
     font-size: 0.85rem;
     font-weight: 600;
-    margin-bottom: 1.25rem;
+    padding: 0.4rem 1rem;
+    border-radius: 9999px;
+    display: inline-block;
   }
 
-  .hero h1 {
-    font-size: 2.75rem;
-    font-weight: 800;
-    letter-spacing: -1px;
-    margin-bottom: 0.75rem;
+  .hero-name {
+    font-size: 2.6rem !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    margin: 0 0 0.5rem 0 !important;
+    line-height: 1.2 !important;
+    position: static !important;
   }
 
-  .hero .subtitle {
-    font-size: 1.25rem;
-    color: var(--primary);
-    font-weight: 600;
-    margin-bottom: 1.5rem;
+  .hero-role {
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    color: #38bdf8 !important;
+    margin: 0 0 1.25rem 0 !important;
   }
 
-  .hero-summary {
-    max-width: 800px;
-    margin: 0 auto 2rem;
-    color: var(--text-muted);
+  .hero-desc {
+    max-width: 820px;
+    color: #94a3b8;
     font-size: 1.05rem;
+    line-height: 1.7;
+    margin: 0 0 2rem 0;
   }
 
-  .contact-bar {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 1.25rem;
-    margin-bottom: 2rem;
+  .contact-grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.85rem !important;
+    margin-top: 0.5rem !important;
+    position: static !important;
   }
 
-  .contact-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    color: var(--text);
-    text-decoration: none;
+  .contact-pill {
+    background: #1e293b !important;
+    border: 1px solid #334155 !important;
+    color: #f8fafc !important;
+    padding: 0.55rem 1rem !important;
+    border-radius: 8px !important;
+    font-size: 0.9rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    text-decoration: none !important;
   }
 
-  .section-title {
-    font-size: 1.85rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-    position: relative;
+  .contact-pill i {
+    color: #38bdf8;
   }
 
-  .section-title::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: 40px;
-    height: 3px;
-    background: var(--primary);
-    border-radius: 2px;
+  /* Secciones */
+  .content-section {
+    margin-bottom: 4rem;
   }
 
+  .heading-decorated {
+    font-size: 1.75rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    margin-bottom: 2rem !important;
+    padding-bottom: 0.5rem !important;
+    border-bottom: 3px solid #38bdf8 !important;
+    display: inline-block !important;
+  }
+
+  /* Habilidades */
   .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1rem;
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)) !important;
+    gap: 1rem !important;
   }
 
-  .skill-card {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    padding: 1.25rem;
-    border-radius: 12px;
+  .skill-item {
+    background: #1e293b;
+    border: 1px solid #334155;
+    padding: 1.15rem;
+    border-radius: 10px;
     display: flex;
     align-items: center;
     gap: 0.75rem;
     font-weight: 600;
+    color: #f8fafc;
   }
 
-  .skill-card i {
-    color: var(--primary);
-    font-size: 1.25rem;
+  .skill-item i {
+    color: #38bdf8;
+    font-size: 1.2rem;
   }
 
-  .timeline {
+  /* Timeline Experiencia */
+  .timeline-container {
+    border-left: 2px solid #334155;
+    margin-left: 0.5rem;
+    padding-left: 1.75rem;
+  }
+
+  .timeline-entry {
     position: relative;
-    border-left: 2px solid var(--timeline-line);
-    margin-left: 1rem;
-    padding-left: 2rem;
+    margin-bottom: 2rem;
   }
 
-  .timeline-item {
-    position: relative;
-    margin-bottom: 2.5rem;
-  }
-
-  .timeline-item::before {
+  .timeline-entry::before {
     content: '';
     position: absolute;
-    left: -2.45rem;
-    top: 0.3rem;
+    left: -2.25rem;
+    top: 1.25rem;
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: var(--primary);
-    border: 3px solid var(--bg);
+    background: #38bdf8;
   }
 
-  .timeline-card {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    padding: 1.75rem;
-    border-radius: 12px;
+  .timeline-card-box {
+    background: #1e293b;
+    border: 1px solid #334155;
+    padding: 1.5rem;
+    border-radius: 10px;
   }
 
-  .timeline-date {
-    display: inline-block;
+  .timeline-badge {
+    color: #38bdf8;
     font-size: 0.8rem;
     font-weight: 700;
-    color: var(--primary);
     text-transform: uppercase;
+    display: block;
     margin-bottom: 0.35rem;
   }
 
-  .timeline-title {
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 0.25rem;
+  .timeline-card-title {
+    font-size: 1.2rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    margin: 0 0 0.25rem 0 !important;
   }
 
-  .timeline-org {
+  .timeline-card-org {
+    color: #94a3b8;
     font-size: 0.95rem;
-    color: var(--text-muted);
     margin-bottom: 1rem;
   }
 
-  .timeline-list {
-    list-style: none;
+  .timeline-bullets {
+    margin: 0;
+    padding-left: 1.2rem;
+    color: #94a3b8;
   }
 
-  .timeline-list li {
-    position: relative;
-    padding-left: 1.25rem;
-    margin-bottom: 0.65rem;
-    font-size: 0.92rem;
-    color: var(--text-muted);
+  .timeline-bullets li {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
   }
 
-  .timeline-list li::before {
-    content: '▹';
-    position: absolute;
-    left: 0;
-    color: var(--primary);
+  /* Formación */
+  .edu-card-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+    gap: 1.25rem !important;
   }
 
-  .edu-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.25rem;
+  .edu-item-box {
+    background: #1e293b;
+    border: 1px solid #334155;
+    padding: 1.25rem;
+    border-radius: 10px;
   }
 
-  .edu-card {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    padding: 1.5rem;
-    border-radius: 12px;
+  .edu-highlight {
+    border-left: 4px solid #38bdf8;
   }
 
-  .edu-year {
+  .edu-item-year {
+    color: #818cf8;
     font-size: 0.8rem;
     font-weight: 700;
-    color: var(--accent);
+    display: block;
+    margin-bottom: 0.25rem;
   }
 
-  .edu-title {
-    font-size: 1rem;
-    font-weight: 700;
-    margin: 0.25rem 0;
+  .edu-item-title {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    margin: 0 0 0.25rem 0 !important;
   }
 
-  .edu-inst {
+  .edu-item-inst {
+    color: #94a3b8;
     font-size: 0.85rem;
-    color: var(--text-muted);
+    margin: 0;
   }
 
-  footer {
-    border-top: 1px solid var(--card-border);
-    padding: 2.5rem 1.5rem;
+  .portfolio-footer {
+    border-top: 1px solid #334155;
+    padding: 2rem 1.5rem;
     text-align: center;
-    color: var(--text-muted);
+    color: #94a3b8;
     font-size: 0.9rem;
-    margin-top: 3rem;
   }
 
   @media (max-width: 768px) {
-    .hero h1 { font-size: 2rem; }
     .nav-links { display: none; }
-    .timeline { padding-left: 1.25rem; }
-    .timeline-item::before { left: -1.7rem; }
+    .hero-name { font-size: 1.9rem !important; }
   }
 </style>
