@@ -7,7 +7,10 @@ const contact = {
   email: "gottlieb.bustos@gmail.com",
   phone: "+56 9 6192 3633",
   location: "Temuco, Chile",
-  languages: "Español (Nativo) · Inglés (B1)"
+  languages: "Español (Nativo) · Inglés (B1)",
+  linkedin: "https://www.linkedin.com/in/gottlieb-bustos-schulze-34a289142",
+  instagram: "https://www.instagram.com/gottliebbustos/",
+  avatar: "/perfil.jpg"
 };
 
 const skills = [
@@ -19,6 +22,57 @@ const skills = [
   { name: "Seguridad Informática", icon: "fa-shield-halved" },
   { name: "Optimización de Sistemas", icon: "fa-diagram-project" },
   { name: "Planificación Operativa", icon: "fa-clipboard-check" }
+];
+
+const certifications = [
+  {
+    name: "AI Skills Fest 2026",
+    issuer: "Microsoft",
+    date: "Jun 2026",
+    id: ""
+  },
+  {
+    name: "Cursor con Python: desarrollo inteligente con IA",
+    issuer: "Santander Open Academy",
+    date: "Jun 2026",
+    id: "OA-2026-0607002716448"
+  },
+  {
+    name: "Python",
+    issuer: "Santander Open Academy",
+    date: "Jun 2026",
+    id: "OA-2026-0607002716385"
+  },
+  {
+    name: "Power BI",
+    issuer: "Santander Open Academy",
+    date: "Jun 2026",
+    id: "OA-2026-0608002719312"
+  },
+  {
+    name: "Domina la IA con Gemini",
+    issuer: "Google Digital Academy (Skillshop)",
+    date: "Jun 2026",
+    id: "466559413"
+  },
+  {
+    name: "Ciberseguridad para Redes de Datos",
+    issuer: "Universidad de Santiago de Chile",
+    date: "Ene 2026",
+    id: ""
+  },
+  {
+    name: "Trabajo en Equipo y Clima Organizacional",
+    issuer: "SENCE / Germán Varas y Asociados",
+    date: "Sep 2015",
+    id: ""
+  },
+  {
+    name: "Decisiones Estratégicas",
+    issuer: "Pontificia Universidad Católica de Chile",
+    date: "Jun 2014",
+    id: ""
+  }
 ];
 
 const experiences = [
@@ -83,15 +137,13 @@ const experiences = [
 
 const education = [
   { year: "2010 - 2014", title: "Ingeniería Civil en Informática", inst: "Universidad Tecnológica de Chile INACAP", highlight: true },
-  { year: "Ene 2026", title: "Curso de Ciberseguridad para Redes de Datos", inst: "Universidad de Santiago de Chile" },
   { year: "Jun 2024", title: "Diplomado en Dirección Estratégica", inst: "Universidad Autónoma de Chile" },
   { year: "Nov 2023", title: "Diplomado en Entorno Estratégico", inst: "Universidad Autónoma de Chile" },
   { year: "Sep 2023", title: "Diplomado de Salud Pública", inst: "Capacitanet" },
   { year: "Nov 2022", title: "Diplomado en Dirección de Personas en Gobiernos Locales", inst: "Universidad del Desarrollo" },
   { year: "May 2020", title: "Diplomado de Gestión en Establecimientos de Salud", inst: "Incapnova Ltda." },
   { year: "Ene 2019", title: "Diplomado en Salud Familiar", inst: "Incapnova Ltda." },
-  { year: "May 2015", title: "Diplomado en Administración de Base de Datos", inst: "Universidad Tecnológica de Chile INACAP" },
-  { year: "Jun 2014", title: "Curso de Decisiones Estratégicas", inst: "Pontificia Universidad Católica de Chile" }
+  { year: "May 2015", title: "Diplomado en Administración de Base de Datos", inst: "Universidad Tecnológica de Chile INACAP" }
 ];
 ---
 
@@ -115,6 +167,7 @@ const education = [
       <div class="nav-links">
         <a href="#experiencia">Experiencia</a>
         <a href="#habilidades">Habilidades</a>
+        <a href="#certificaciones">Certificaciones</a>
         <a href="#formacion">Formación</a>
       </div>
     </nav>
@@ -123,6 +176,12 @@ const education = [
   <div class="main-wrapper">
     <!-- Hero -->
     <section class="hero-block">
+      
+      <!-- Foto de Perfil Circular -->
+      <div class="avatar-container">
+        <img src={contact.avatar} alt="Foto de Gottlieb Bustos Schulze" class="avatar-img" />
+      </div>
+
       <div class="badge-wrapper">
         <span class="hero-badge">Ingeniero Civil en Informática</span>
       </div>
@@ -131,6 +190,12 @@ const education = [
       <p class="hero-desc">{description}</p>
 
       <div class="contact-grid">
+        <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" class="contact-pill contact-pill-linkedin">
+          <i class="fa-brands fa-linkedin"></i> <span>LinkedIn</span>
+        </a>
+        <a href={contact.instagram} target="_blank" rel="noopener noreferrer" class="contact-pill contact-pill-instagram">
+          <i class="fa-brands fa-instagram"></i> <span>Instagram</span>
+        </a>
         <a href={`mailto:${contact.email}`} class="contact-pill">
           <i class="fa-solid fa-envelope"></i> <span>{contact.email}</span>
         </a>
@@ -180,6 +245,33 @@ const education = [
       </div>
     </section>
 
+    <!-- Certificaciones -->
+    <section class="content-section" id="certificaciones">
+      <div class="section-header-flex">
+        <h2 class="heading-decorated">Licencias & Certificaciones</h2>
+        <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" class="link-external">
+          Ver en LinkedIn <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      </div>
+      <div class="cert-grid">
+        {certifications.map((cert) => (
+          <div class="cert-item-box">
+            <div class="cert-icon-wrap">
+              <i class="fa-solid fa-award"></i>
+            </div>
+            <div class="cert-details">
+              <h3 class="cert-title">{cert.name}</h3>
+              <p class="cert-issuer">{cert.issuer}</p>
+              <div class="cert-meta">
+                <span class="cert-date">Expedición: {cert.date}</span>
+                {cert.id && <span class="cert-id">ID: {cert.id}</span>}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
     <!-- Formación -->
     <section class="content-section" id="formacion">
       <h2 class="heading-decorated">Formación Académica & Diplomados</h2>
@@ -203,7 +295,6 @@ const education = [
 </html>
 
 <style is:global>
-  /* Reset estricto para evitar colisiones con layouts de Astro */
   html, body.portfolio-body {
     margin: 0 !important;
     padding: 0 !important;
@@ -267,14 +358,29 @@ const education = [
     display: block !important;
   }
 
-  /* Hero */
+  /* Hero Block & Avatar */
   .hero-block {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     text-align: center !important;
     margin-bottom: 3.5rem !important;
-    position: static !important;
+  }
+
+  .avatar-container {
+    margin-bottom: 1.25rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .avatar-img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    border: 3px solid #38bdf8;
+    box-shadow: 0 8px 24px rgba(56, 189, 248, 0.2);
   }
 
   .badge-wrapper {
@@ -297,7 +403,6 @@ const education = [
     color: #ffffff !important;
     margin: 0 0 0.5rem 0 !important;
     line-height: 1.2 !important;
-    position: static !important;
   }
 
   .hero-role {
@@ -315,13 +420,13 @@ const education = [
     margin: 0 0 2rem 0;
   }
 
+  /* Contact Chips / Social links */
   .contact-grid {
     display: flex !important;
     flex-wrap: wrap !important;
     justify-content: center !important;
     gap: 0.85rem !important;
     margin-top: 0.5rem !important;
-    position: static !important;
   }
 
   .contact-pill {
@@ -335,32 +440,90 @@ const education = [
     align-items: center !important;
     gap: 0.5rem !important;
     text-decoration: none !important;
+    transition: all 0.2s ease;
+  }
+
+  .contact-pill:hover {
+    border-color: #38bdf8 !important;
+    transform: translateY(-2px);
+  }
+
+  .contact-pill-linkedin {
+    background: rgba(10, 102, 194, 0.15) !important;
+    border-color: #0a66c2 !important;
+    color: #60a5fa !important;
+  }
+
+  .contact-pill-linkedin:hover {
+    background: rgba(10, 102, 194, 0.25) !important;
+    border-color: #38bdf8 !important;
+  }
+
+  .contact-pill-instagram {
+    background: rgba(225, 48, 108, 0.15) !important;
+    border-color: #e1306c !important;
+    color: #f472b6 !important;
+  }
+
+  .contact-pill-instagram:hover {
+    background: rgba(225, 48, 108, 0.25) !important;
+    border-color: #fb7185 !important;
   }
 
   .contact-pill i {
     color: #38bdf8;
   }
 
-  /* Secciones */
+  .contact-pill-linkedin i {
+    color: #60a5fa;
+  }
+
+  .contact-pill-instagram i {
+    color: #f472b6;
+  }
+
+  /* Content Sections */
   .content-section {
     margin-bottom: 4rem;
+  }
+
+  .section-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
   }
 
   .heading-decorated {
     font-size: 1.75rem !important;
     font-weight: 700 !important;
     color: #ffffff !important;
-    margin-bottom: 2rem !important;
+    margin: 0 !important;
     padding-bottom: 0.5rem !important;
     border-bottom: 3px solid #38bdf8 !important;
     display: inline-block !important;
   }
 
-  /* Habilidades */
+  .link-external {
+    color: #38bdf8;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .link-external:hover {
+    text-decoration: underline;
+  }
+
+  /* Skills */
   .skills-grid {
     display: grid !important;
     grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)) !important;
     gap: 1rem !important;
+    margin-top: 1.5rem;
   }
 
   .skill-item {
@@ -380,11 +543,12 @@ const education = [
     font-size: 1.2rem;
   }
 
-  /* Timeline Experiencia */
+  /* Timeline */
   .timeline-container {
     border-left: 2px solid #334155;
     margin-left: 0.5rem;
     padding-left: 1.75rem;
+    margin-top: 1.5rem;
   }
 
   .timeline-entry {
@@ -443,11 +607,81 @@ const education = [
     line-height: 1.5;
   }
 
-  /* Formación */
+  /* Certifications Grid */
+  .cert-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
+    gap: 1.25rem !important;
+    margin-top: 1.5rem;
+  }
+
+  .cert-item-box {
+    background: #1e293b;
+    border: 1px solid #334155;
+    padding: 1.25rem;
+    border-radius: 10px;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .cert-icon-wrap {
+    background: rgba(56, 189, 248, 0.1);
+    color: #38bdf8;
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+
+  .cert-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .cert-title {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    margin: 0 !important;
+    line-height: 1.35;
+  }
+
+  .cert-issuer {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    margin: 0;
+  }
+
+  .cert-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+    font-size: 0.78rem;
+  }
+
+  .cert-date {
+    color: #818cf8;
+    font-weight: 600;
+  }
+
+  .cert-id {
+    color: #64748b;
+    font-family: monospace;
+  }
+
+  /* Education Grid */
   .edu-card-grid {
     display: grid !important;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
     gap: 1.25rem !important;
+    margin-top: 1.5rem;
   }
 
   .edu-item-box {
@@ -493,5 +727,6 @@ const education = [
   @media (max-width: 768px) {
     .nav-links { display: none; }
     .hero-name { font-size: 1.9rem !important; }
+    .section-header-flex { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
   }
 </style>
