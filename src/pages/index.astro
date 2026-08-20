@@ -1,78 +1,551 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import HorizontalCard from "../components/HorizontalCard.astro";
-import { getCollection } from "astro:content";
-import createSlug from "../lib/createSlug"
+// src/pages/index.astro
+const title = "Gottlieb Bustos Schulze | Portafolio & CV";
+const description = "Ingeniero Civil en Informática con más de 15 años de trayectoria en Analítica de Datos, Control de Gestión TI y Dirección Estratégica.";
 
-const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const contact = {
+  email: "gottlieb.bustos@gmail.com",
+  phone: "+56 9 6192 3633",
+  location: "Temuco, Chile",
+  languages: "Español (Nativo) · Inglés (B1)"
+};
 
-const last_posts = posts.slice(0, 3);
+const skills = [
+  { name: "Liderazgo Estratégico", icon: "fa-chart-line" },
+  { name: "Análisis & Gobernanza de Datos", icon: "fa-database" },
+  { name: "Gestión de Infraestructura", icon: "fa-server" },
+  { name: "Desarrollo Web & PHP/JS", icon: "fa-code" },
+  { name: "Automatización de Procesos", icon: "fa-gears" },
+  { name: "Seguridad Informática", icon: "fa-shield-halved" },
+  { name: "Optimización de Sistemas", icon: "fa-diagram-project" },
+  { name: "Planificación Operativa", icon: "fa-clipboard-check" }
+];
+
+const experiences = [
+  {
+    period: "Feb 2023 - Oct 2025",
+    role: "Subdirector Administrativo",
+    org: "CESFAM Villa Alegre – Pedro Pastor Araya (Liderazgo Directivo y Gestión Estratégica)",
+    achievements: [
+      "Dirección General y Planificación: Organización integral de actividades administrativas y logísticas. Planes de continuidad con Cartas Gantt.",
+      "Gobernanza Financiera: Formulación y control presupuestario anual junto al DSM y ejecución de auditorías de costos.",
+      "Gestión de Personas: Supervisión del talento humano, cobertura de suplencias y precalificación de desempeño.",
+      "Control de Procesos TI: Supervisión de adquisiciones, activos fijos y flujos tecnológicos institucionales.",
+      "Gestión del Cambio: Promoción de ambientes laborales inclusivos, equidad de género y Plan Comunal de Capacitación."
+    ]
+  },
+  {
+    period: "Nov 2016 - Ene 2023",
+    role: "Gestor de Información (Analista de Datos Clínicos y Sanitarios)",
+    org: "CESFAM Villa Alegre – Pedro Pastor Araya",
+    achievements: [
+      "Análisis y Reportería: Gestión y entrega con 100% de oportunidad de informes estadísticos y sanitarios (REM/SIGGES).",
+      "Data Quality: Auditorías de registro clínico electrónico e implementación de feedback loops con equipos de salud.",
+      "Administración RAYEN Salud: Gestión de perfiles, seguridad por atributos y migración de datos.",
+      "Base de Datos Poblacional: Control de Sis-Percapita y segmentación demográfica para decisiones directivas.",
+      "Parametrización Clínica: Modelamiento de agendas electrónicas y reglas MAIS en flujos informáticos.",
+      "Enlace Institucional: Representante técnico ante el SSASUR en mesas de reconciliación de datos."
+    ]
+  },
+  {
+    period: "Nov 2013 - Mar 2016",
+    role: "Ingeniero de Soporte, Redes y Sistemas (Infraestructura de Datos)",
+    org: "Valles del Sur S.p.A.",
+    achievements: [
+      "Administración ERP Softland: Soporte operativo resguardando integridad y consistencia de datos corporativos.",
+      "CMDB y Activos: Documentación técnica centralizada y control de inventario TI.",
+      "Continuidad y Backups: Políticas periódicas de respaldos ante contingencias.",
+      "Infraestructura: Gestión de Windows Server 2008, servicios web y correo corporativo.",
+      "SLAs y Mesa de Ayuda: Resolución y análisis de incidentes técnicos bajo métricas."
+    ]
+  },
+  {
+    period: "Oct 2013 - Nov 2016",
+    role: "Desarrollador Web Freelance",
+    org: "Buena Mezcla Estudio",
+    achievements: [
+      "Desarrollo Web: Implementación de soluciones a medida, arquitectura limpia y escalable.",
+      "CMS & Backend: Personalización avanzada en WordPress, integración de APIs y desarrollo backend en PHP.",
+      "Frontend & UX: Maquetación responsiva con CSS y analítica de rendimiento web."
+    ]
+  },
+  {
+    period: "Jun 2012 - Feb 2013",
+    role: "Desarrollador de Aplicaciones / Ingeniero de Datos en Salud",
+    org: "Hebrón Tecnología y Salud",
+    achievements: [
+      "Liderazgo Técnico: Mantenimiento y desarrollo de sistemas APS (GAP y GCP).",
+      "Bases de Datos PostgreSQL: Modelamiento y optimización para registros clínicos sensibles.",
+      "Fullstack: Lógica backend en PHP e interfaces dinámicas en JavaScript."
+    ]
+  }
+];
+
+const education = [
+  { year: "2010 - 2014", title: "Ingeniería Civil en Informática", inst: "Universidad Tecnológica de Chile INACAP", highlight: true },
+  { year: "Ene 2026", title: "Curso de Ciberseguridad para Redes de Datos", inst: "Universidad de Santiago de Chile" },
+  { year: "Jun 2024", title: "Diplomado en Dirección Estratégica", inst: "Universidad Autónoma de Chile" },
+  { year: "Nov 2023", title: "Diplomado en Entorno Estratégico", inst: "Universidad Autónoma de Chile" },
+  { year: "Sep 2023", title: "Diplomado de Salud Pública", inst: "Capacitanet" },
+  { year: "Nov 2022", title: "Diplomado en Dirección de Personas en Gobiernos Locales", inst: "Universidad del Desarrollo" },
+  { year: "May 2020", title: "Diplomado de Gestión en Establecimientos de Salud", inst: "Incapnova Ltda." },
+  { year: "Ene 2019", title: "Diplomado en Salud Familiar", inst: "Incapnova Ltda." },
+  { year: "May 2015", title: "Diplomado en Administración de Base de Datos", inst: "Universidad Tecnológica de Chile INACAP" },
+  { year: "Jun 2014", title: "Curso de Decisiones Estratégicas", inst: "Pontificia Universidad Católica de Chile" }
+];
 ---
 
-<BaseLayout sideBarActiveItemID="home">
-  <div class="pb-12 mt-5">
-    <div class="text-xl py-1">Hey there 👋</div>
-    <div class="text-5xl font-bold">I'm Manuel Ernesto</div>
-    <div class="text-3xl py-3 font-bold">Software Engineer and Entrepreneur</div>
-    <div class="py-2">
-      <text class="text-lg">
-        This is <b>Astrofy</b> a free and open-source template for your Personal Portfolio Website built with Astro and TailwindCSS.
-        Create in minutes a website with Blog, CV, Project Section, Store and RSS Feed. I hope you find
-        it useful!
-      </text>
-    </div>
-    <div class="mt-8">
-      <a class="btn" href="https://twitter.com/manuelernestog" target="_blank"> Let's connect!</a>
-      <a href="https://github.com/manuelernestog/astrofy" target="_blank" class="btn btn-outline ml-5">
-        Get This template
-      </a>
-    </div>
-  </div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
 
-  <div>
-    <div class="text-3xl w-full font-bold mb-2">My last projects {"</>"}</div>
-  </div>
+  <header>
+    <nav>
+      <a href="#" class="nav-logo">Gottlieb Bustos S.</a>
+      <ul class="nav-links">
+        <li><a href="#experiencia">Experiencia</a></li>
+        <li><a href="#habilidades">Habilidades</a></li>
+        <li><a href="#formacion">Formación</a></li>
+      </ul>
+      <button class="theme-toggle" id="theme-btn" aria-label="Cambiar tema">
+        <i class="fa-solid fa-moon"></i> <span>Tema</span>
+      </button>
+    </nav>
+  </header>
 
-  <HorizontalCard
-    title="Demo Project 1"
-    img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
-    badge="NEW"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Demo Project 2"
-    img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Demo Project 3"
-    img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
-    badge="FOSS"
-  />
+  <main>
+    <!-- Hero Section -->
+    <section class="hero container">
+      <span class="hero-badge">Ingeniero Civil en Informática</span>
+      <h1>Gottlieb Bustos Schulze</h1>
+      <p class="subtitle">Analítica de Datos · Control de Gestión TI · Dirección Estratégica</p>
+      <p class="hero-summary">{description}</p>
 
-  <div>
-    <div class="text-3xl w-full font-bold mb-5 mt-10">Latest from blog</div>
-  </div>
+      <div class="contact-bar">
+        <a href={`mailto:${contact.email}`} class="contact-chip">
+          <i class="fa-solid fa-envelope"></i> {contact.email}
+        </a>
+        <a href={`tel:${contact.phone.replace(/\s+/g, '')}`} class="contact-chip">
+          <i class="fa-solid fa-phone"></i> {contact.phone}
+        </a>
+        <span class="contact-chip">
+          <i class="fa-solid fa-location-dot"></i> {contact.location}
+        </span>
+        <span class="contact-chip">
+          <i class="fa-solid fa-language"></i> {contact.languages}
+        </span>
+      </div>
+    </section>
 
-  {
-    last_posts.map((post) => (
-      <>
-        <HorizontalCard
-          title={post.data.title}
-          img={post.data.heroImage}
-          desc={post.data.description}
-          url={"/blog/" + createSlug(post.data.title, post.slug)}
-          target="_self"
-          badge={post.data.badge}
-        />
-        <div class="divider my-0" />
-      </>
-    ))
+    <!-- Skills Section -->
+    <section class="container" id="habilidades">
+      <h2 class="section-title">Habilidades Clave</h2>
+      <div class="skills-grid">
+        {skills.map((skill) => (
+          <div class="skill-card">
+            <i class={`fa-solid ${skill.icon}`}></i>
+            <span>{skill.name}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Experience Timeline -->
+    <section class="container" id="experiencia">
+      <h2 class="section-title">Experiencia Laboral</h2>
+      <div class="timeline">
+        {experiences.map((exp) => (
+          <div class="timeline-item">
+            <div class="timeline-card">
+              <span class="timeline-date">{exp.period}</span>
+              <h3 class="timeline-title">{exp.role}</h3>
+              <p class="timeline-org">{exp.org}</p>
+              <ul class="timeline-list">
+                {exp.achievements.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Education & Certifications -->
+    <section class="container" id="formacion">
+      <h2 class="section-title">Formación Académica & Diplomados</h2>
+      <div class="edu-grid">
+        {education.map((edu) => (
+          <div class="edu-card" style={edu.highlight ? "border-left: 4px solid var(--primary);" : ""}>
+            <div class="edu-year">{edu.year}</div>
+            <h3 class="edu-title">{edu.title}</h3>
+            <p class="edu-inst">{edu.inst}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 Gottlieb Bustos Schulze · Portafolio Profesional</p>
+  </footer>
+
+  <script>
+    const themeBtn = document.getElementById('theme-btn');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    let isDark = prefersDark;
+
+    function applyTheme() {
+      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+      if (themeBtn) {
+        themeBtn.innerHTML = isDark 
+          ? '<i class="fa-solid fa-sun"></i> <span>Claro</span>' 
+          : '<i class="fa-solid fa-moon"></i> <span>Oscuro</span>';
+      }
+    }
+
+    applyTheme();
+
+    themeBtn?.addEventListener('click', () => {
+      isDark = !isDark;
+      applyTheme();
+    });
+  </script>
+</body>
+</html>
+
+<style>
+  :root {
+    --bg: #0f172a;
+    --card-bg: #1e293b;
+    --card-border: #334155;
+    --text: #f8fafc;
+    --text-muted: #94a3b8;
+    --primary: #38bdf8;
+    --primary-hover: #0284c7;
+    --accent: #818cf8;
+    --badge-bg: rgba(56, 189, 248, 0.1);
+    --badge-text: #38bdf8;
+    --timeline-line: #334155;
   }
-</BaseLayout>
+
+  :global([data-theme="light"]) {
+    --bg: #f8fafc;
+    --card-bg: #ffffff;
+    --card-border: #e2e8f0;
+    --text: #0f172a;
+    --text-muted: #64748b;
+    --primary: #0284c7;
+    --primary-hover: #0369a1;
+    --accent: #6366f1;
+    --badge-bg: rgba(2, 132, 199, 0.1);
+    --badge-text: #0284c7;
+    --timeline-line: #cbd5e1;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--card-border);
+    z-index: 1000;
+  }
+  :global([data-theme="light"]) header {
+    background: rgba(248, 250, 252, 0.85);
+  }
+
+  nav {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-logo {
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--primary);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: var(--primary);
+  }
+
+  .theme-toggle {
+    background: none;
+    border: 1px solid var(--card-border);
+    color: var(--text);
+    padding: 0.4rem 0.75rem;
+    border-radius: 9999px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+  }
+
+  .hero {
+    padding: 4rem 1.5rem 2rem;
+    text-align: center;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    background: var(--badge-bg);
+    color: var(--badge-text);
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero h1 {
+    font-size: 2.75rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero .subtitle {
+    font-size: 1.25rem;
+    color: var(--primary);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-summary {
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    color: var(--text-muted);
+    font-size: 1.05rem;
+  }
+
+  .contact-bar {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  .contact-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .section-title {
+    font-size: 1.85rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+
+  .section-title::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 40px;
+    height: 3px;
+    background: var(--primary);
+    border-radius: 2px;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .skill-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 1.25rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 600;
+  }
+
+  .skill-card i {
+    color: var(--primary);
+    font-size: 1.25rem;
+  }
+
+  .timeline {
+    position: relative;
+    border-left: 2px solid var(--timeline-line);
+    margin-left: 1rem;
+    padding-left: 2rem;
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 2.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2.45rem;
+    top: 0.3rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--primary);
+    border: 3px solid var(--bg);
+  }
+
+  .timeline-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 1.75rem;
+    border-radius: 12px;
+  }
+
+  .timeline-date {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+
+  .timeline-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .timeline-org {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .timeline-list {
+    list-style: none;
+  }
+
+  .timeline-list li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.65rem;
+    font-size: 0.92rem;
+    color: var(--text-muted);
+  }
+
+  .timeline-list li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+  }
+
+  .edu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .edu-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+  .edu-year {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .edu-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0.25rem 0;
+  }
+
+  .edu-inst {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+
+  footer {
+    border-top: 1px solid var(--card-border);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    .nav-links { display: none; }
+    .timeline { padding-left: 1.25rem; }
+    .timeline-item::before { left: -1.7rem; }
+  }
+</style>
