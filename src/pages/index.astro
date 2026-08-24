@@ -24,54 +24,63 @@ const skills = [
   { name: "Planificación Operativa", icon: "fa-clipboard-check" }
 ];
 
+// 👉 Asigna aquí la ruta del archivo PDF o imagen correspondiente:
 const certifications = [
   {
     name: "AI Skills Fest 2026",
     issuer: "Microsoft",
     date: "Jun 2026",
-    id: ""
+    id: "",
+    file: "/certificados/ai-skills-fest-2026.pdf"
   },
   {
     name: "Cursor con Python: desarrollo inteligente con IA",
     issuer: "Santander Open Academy",
     date: "Jun 2026",
-    id: "OA-2026-0607002716448"
+    id: "OA-2026-0607002716448",
+    file: "/certificados/cursor-python.pdf"
   },
   {
     name: "Python",
     issuer: "Santander Open Academy",
     date: "Jun 2026",
-    id: "OA-2026-0607002716385"
+    id: "OA-2026-0607002716385",
+    file: "/certificados/python-santander.pdf"
   },
   {
     name: "Power BI",
     issuer: "Santander Open Academy",
     date: "Jun 2026",
-    id: "OA-2026-0608002719312"
+    id: "OA-2026-0608002719312",
+    file: "/certificados/power-bi-santander.pdf"
   },
   {
     name: "Domina la IA con Gemini",
     issuer: "Google Digital Academy (Skillshop)",
     date: "Jun 2026",
-    id: "466559413"
+    id: "466559413",
+    file: "/certificados/domina-ia-gemini.pdf"
   },
   {
     name: "Ciberseguridad para Redes de Datos",
     issuer: "Universidad de Santiago de Chile",
     date: "Ene 2026",
-    id: ""
+    id: "",
+    file: "/certificados/ciberseguridad-usach.pdf"
   },
   {
     name: "Trabajo en Equipo y Clima Organizacional",
     issuer: "SENCE / Germán Varas y Asociados",
     date: "Sep 2015",
-    id: ""
+    id: "",
+    file: ""
   },
   {
     name: "Decisiones Estratégicas",
     issuer: "Pontificia Universidad Católica de Chile",
     date: "Jun 2014",
-    id: ""
+    id: "",
+    file: ""
   }
 ];
 
@@ -231,19 +240,35 @@ const education = [
     <!-- Certificaciones -->
     <section class="content-section" id="certificaciones">
       <div class="section-header-flex">
-        <h2 class="heading-decorated">Licencias & Certificaciones</h2>
+        <div>
+          <h2 class="heading-decorated">Licencias & Certificaciones</h2>
+          <p class="section-hint">Haz clic en el título de una certificación para ver su respaldo documental.</p>
+        </div>
         <a href="https://www.linkedin.com/in/gottlieb-bustos-schulze-34a289142/details/certifications/" target="_blank" rel="noopener noreferrer" class="link-external">
           Ver en LinkedIn <i class="fa-solid fa-arrow-up-right-from-square"></i>
         </a>
       </div>
       <div class="cert-grid">
         {certifications.map((cert) => (
-          <div class="cert-item-box">
+          <div class={`cert-item-box ${cert.file ? 'cert-interactive' : ''}`}>
             <div class="cert-icon-wrap">
               <i class="fa-solid fa-award"></i>
             </div>
             <div class="cert-details">
-              <h3 class="cert-title">{cert.name}</h3>
+              {cert.file ? (
+                <button 
+                  type="button" 
+                  class="cert-title-btn" 
+                  data-file={cert.file}
+                  data-name={cert.name}
+                  data-issuer={cert.issuer}
+                >
+                  <span>{cert.name}</span>
+                  <i class="fa-solid fa-file-lines cert-doc-icon"></i>
+                </button>
+              ) : (
+                <h3 class="cert-title">{cert.name}</h3>
+              )}
               <p class="cert-issuer">{cert.issuer}</p>
               <div class="cert-meta">
                 <span class="cert-date">Expedición: {cert.date}</span>
@@ -295,9 +320,97 @@ const education = [
     </section>
   </div>
 
+  <!-- Modal Visor de Certificados -->
+  <div class="modal-backdrop" id="cert-modal" aria-hidden="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div>
+          <h3 id="modal-title" class="modal-title">Certificado</h3>
+          <p id="modal-issuer" class="modal-subtitle"></p>
+        </div>
+        <div class="modal-actions">
+          <a id="modal-download" href="#" target="_blank" class="modal-btn" title="Abrir en pestaña nueva">
+            <i class="fa-solid fa-up-right-from-square"></i>
+          </a>
+          <button id="modal-close" type="button" class="modal-btn modal-close-btn" aria-label="Cerrar">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+      <div class="modal-body" id="modal-body">
+        <!-- Inyección dinámica de PDF o Imagen -->
+      </div>
+    </div>
+  </div>
+
   <footer class="portfolio-footer">
     <p>© 2026 Gottlieb Bustos Schulze · Portafolio Profesional</p>
   </footer>
+
+  <script>
+    const modal = document.getElementById('cert-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalIssuer = document.getElementById('modal-issuer');
+    const modalBody = document.getElementById('modal-body');
+    const modalDownload = document.getElementById('modal-download') as HTMLAnchorElement;
+    const modalClose = document.getElementById('modal-close');
+
+    function openModal(file: string, name: string, issuer: string) {
+      if (!modal || !modalBody || !modalTitle || !modalIssuer || !modalDownload) return;
+
+      modalTitle.textContent = name;
+      modalIssuer.textContent = issuer;
+      modalDownload.href = file;
+
+      const isPdf = file.toLowerCase().endsWith('.pdf');
+      modalBody.innerHTML = '';
+
+      if (isPdf) {
+        const iframe = document.createElement('iframe');
+        iframe.src = file;
+        iframe.className = 'modal-iframe';
+        modalBody.appendChild(iframe);
+      } else {
+        const img = document.createElement('img');
+        img.src = file;
+        img.alt = name;
+        img.className = 'modal-img';
+        modalBody.appendChild(img);
+      }
+
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      if (!modal || !modalBody) return;
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
+      modalBody.innerHTML = '';
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.cert-title-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const file = btn.getAttribute('data-file');
+        const name = btn.getAttribute('data-name');
+        const issuer = btn.getAttribute('data-issuer');
+        if (file && name && issuer) {
+          openModal(file, name, issuer);
+        }
+      });
+    });
+
+    modalClose?.addEventListener('click', closeModal);
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
 
 </body>
 </html>
@@ -420,8 +533,14 @@ const education = [
   .section-header-flex {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
+    align-items: flex-end;
+    margin-bottom: 1.75rem;
+  }
+
+  .section-hint {
+    color: #64748b;
+    font-size: 0.85rem;
+    margin: 0.5rem 0 0 0;
   }
 
   .heading-decorated {
@@ -571,6 +690,12 @@ const education = [
     display: flex;
     gap: 1rem;
     align-items: flex-start;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .cert-interactive:hover {
+    border-color: #38bdf8;
+    transform: translateY(-2px);
   }
 
   .cert-icon-wrap {
@@ -590,6 +715,34 @@ const education = [
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
+    width: 100%;
+  }
+
+  .cert-title-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    color: #38bdf8 !important;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    line-height: 1.35;
+    transition: color 0.2s;
+  }
+
+  .cert-title-btn:hover {
+    color: #7dd3fc !important;
+    text-decoration: underline;
+  }
+
+  .cert-doc-icon {
+    font-size: 0.85rem;
+    opacity: 0.75;
   }
 
   .cert-title {
@@ -622,6 +775,112 @@ const education = [
   .cert-id {
     color: #64748b;
     font-family: monospace;
+  }
+
+  /* Modal Viewer */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
+  }
+
+  .modal-backdrop.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal-content {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 900px;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #334155;
+    background: #0f172a;
+  }
+
+  .modal-title {
+    font-size: 1.15rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    margin: 0 !important;
+  }
+
+  .modal-subtitle {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    margin: 0.2rem 0 0 0;
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .modal-btn {
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #f8fafc;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .modal-btn:hover {
+    border-color: #38bdf8;
+    color: #38bdf8;
+  }
+
+  .modal-body {
+    flex: 1;
+    background: #0b1120;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    padding: 1rem;
+  }
+
+  .modal-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 6px;
+    background: #ffffff;
+  }
+
+  .modal-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 6px;
   }
 
   /* Education Grid */
@@ -738,5 +997,6 @@ const education = [
     .hero-name { font-size: 1.9rem !important; }
     .section-header-flex { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
     .about-box { padding: 1.25rem 1.5rem; }
+    .modal-content { height: 92vh; }
   }
 </style>
