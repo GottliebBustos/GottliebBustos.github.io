@@ -9,9 +9,10 @@ const contact = {
   location: "Temuco, Chile",
   languages: "Español (Nativo) · Inglés (B1)",
   linkedin: "https://www.linkedin.com/in/gottlieb-bustos-schulze-34a289142",
-  instagram: "https://www.instagram.com/gottliebbustos/",
   avatar: "/perfil.jpg"
 };
+
+const aboutText = "Soy Ingeniero Civil en Informática con más de 15 años de trayectoria profesional, especializado en liderar la transformación digital, la analítica y gobernanza de datos y la dirección estratégica de operaciones institucionales. Me dedico a convertir grandes volúmenes de datos complejos e infraestructura tecnológica en sistemas eficientes y decisiones directivas de alto impacto, impulsado por la convicción de que la tecnología bien gestionada optimiza los recursos públicos y privados y mejora sustancialmente la calidad de vida de las personas. Logro estos resultados combinando un riguroso dominio técnico en modelamiento de bases de datos, IA y automatización con un liderazgo colaborativo, auditorías continuas y una planificación orientada a la excelencia operacional.";
 
 const skills = [
   { name: "Liderazgo Estratégico", icon: "fa-chart-line" },
@@ -165,8 +166,9 @@ const education = [
     <nav class="portfolio-nav">
       <a href="#" class="nav-brand">Gottlieb Bustos S.</a>
       <div class="nav-links">
-        <a href="#experiencia">Experiencia</a>
+        <a href="#sobre-mi">Sobre Mí</a>
         <a href="#habilidades">Habilidades</a>
+        <a href="#experiencia">Experiencia</a>
         <a href="#certificaciones">Certificaciones</a>
         <a href="#formacion">Formación</a>
       </div>
@@ -193,9 +195,6 @@ const education = [
         <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" class="contact-pill contact-pill-linkedin">
           <i class="fa-brands fa-linkedin"></i> <span>LinkedIn</span>
         </a>
-        <a href={contact.instagram} target="_blank" rel="noopener noreferrer" class="contact-pill contact-pill-instagram">
-          <i class="fa-brands fa-instagram"></i> <span>Instagram</span>
-        </a>
         <a href={`mailto:${contact.email}`} class="contact-pill">
           <i class="fa-solid fa-envelope"></i> <span>{contact.email}</span>
         </a>
@@ -208,6 +207,14 @@ const education = [
         <span class="contact-pill">
           <i class="fa-solid fa-language"></i> <span>{contact.languages}</span>
         </span>
+      </div>
+    </section>
+
+    <!-- Sobre Mí -->
+    <section class="content-section" id="sobre-mi">
+      <h2 class="heading-decorated">Sobre Mí</h2>
+      <div class="about-box">
+        <p class="about-paragraph">{aboutText}</p>
       </div>
     </section>
 
@@ -249,7 +256,7 @@ const education = [
     <section class="content-section" id="certificaciones">
       <div class="section-header-flex">
         <h2 class="heading-decorated">Licencias & Certificaciones</h2>
-        <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" class="link-external">
+        <a href="https://www.linkedin.com/in/gottlieb-bustos-schulze-34a289142/details/certifications/" target="_blank" rel="noopener noreferrer" class="link-external">
           Ver en LinkedIn <i class="fa-solid fa-arrow-up-right-from-square"></i>
         </a>
       </div>
@@ -420,7 +427,7 @@ const education = [
     margin: 0 0 2rem 0;
   }
 
-  /* Contact Chips / Social links */
+  /* Contact Chips */
   .contact-grid {
     display: flex !important;
     flex-wrap: wrap !important;
@@ -459,27 +466,12 @@ const education = [
     border-color: #38bdf8 !important;
   }
 
-  .contact-pill-instagram {
-    background: rgba(225, 48, 108, 0.15) !important;
-    border-color: #e1306c !important;
-    color: #f472b6 !important;
-  }
-
-  .contact-pill-instagram:hover {
-    background: rgba(225, 48, 108, 0.25) !important;
-    border-color: #fb7185 !important;
-  }
-
   .contact-pill i {
     color: #38bdf8;
   }
 
   .contact-pill-linkedin i {
     color: #60a5fa;
-  }
-
-  .contact-pill-instagram i {
-    color: #f472b6;
   }
 
   /* Content Sections */
@@ -516,6 +508,24 @@ const education = [
 
   .link-external:hover {
     text-decoration: underline;
+  }
+
+  /* Sobre Mí */
+  .about-box {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-left: 4px solid #38bdf8;
+    padding: 1.75rem 2rem;
+    border-radius: 12px;
+    margin-top: 1.5rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .about-paragraph {
+    color: #cbd5e1;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin: 0;
   }
 
   /* Skills */
@@ -728,5 +738,6 @@ const education = [
     .nav-links { display: none; }
     .hero-name { font-size: 1.9rem !important; }
     .section-header-flex { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+    .about-box { padding: 1.25rem 1.5rem; }
   }
 </style>
