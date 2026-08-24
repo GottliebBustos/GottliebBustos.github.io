@@ -8,8 +8,7 @@ const contact = {
   phone: "+56 9 6192 3633",
   location: "Temuco, Chile",
   languages: "Español (Nativo) · Inglés (B1)",
-  linkedin: "https://www.linkedin.com/in/gottlieb-bustos-schulze-34a289142",
-  avatar: "/perfil.jpg"
+  linkedin: "https://www.linkedin.com/in/gottlieb-bustos-schulze-34a289142"
 };
 
 const aboutText = "Soy Ingeniero Civil en Informática con más de 15 años de trayectoria profesional, especializado en liderar la transformación digital, la analítica y gobernanza de datos y la dirección estratégica de operaciones institucionales. Me dedico a convertir grandes volúmenes de datos complejos e infraestructura tecnológica en sistemas eficientes y decisiones directivas de alto impacto, impulsado por la convicción de que la tecnología bien gestionada optimiza los recursos públicos y privados y mejora sustancialmente la calidad de vida de las personas. Logro estos resultados combinando un riguroso dominio técnico en modelamiento de bases de datos, IA y automatización con un liderazgo colaborativo, auditorías continuas y una planificación orientada a la excelencia operacional.";
@@ -178,12 +177,6 @@ const education = [
   <div class="main-wrapper">
     <!-- Hero -->
     <section class="hero-block">
-      
-      <!-- Foto de Perfil Circular -->
-      <div class="avatar-container">
-        <img src={contact.avatar} alt="Foto de Gottlieb Bustos Schulze" class="avatar-img" />
-      </div>
-
       <div class="badge-wrapper">
         <span class="hero-badge">Ingeniero Civil en Informática</span>
       </div>
@@ -365,29 +358,13 @@ const education = [
     display: block !important;
   }
 
-  /* Hero Block & Avatar */
+  /* Hero Block */
   .hero-block {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     text-align: center !important;
     margin-bottom: 3.5rem !important;
-  }
-
-  .avatar-container {
-    margin-bottom: 1.25rem;
-    display: flex;
-    justify-content: center;
-  }
-
-  .avatar-img {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    object-fit: cover;
-    object-position: center top;
-    border: 3px solid #38bdf8;
-    box-shadow: 0 8px 24px rgba(56, 189, 248, 0.2);
   }
 
   .badge-wrapper {
