@@ -1,7 +1,7 @@
 ---
 // src/pages/index.astro
 const title = "Gottlieb Bustos Schulze | Portafolio & CV";
-const description = "Ingeniero Civil en Informática con más de 15 años de trayectoria en Analítica de Datos, Control de Gestión TI y Dirección Estratégica.";
+const description = "Ingeniero Civil en Informática con más de 15 años de trayectoria profesional, especializado en Analítica de Datos, Control de Gestión TI y Dirección Estratégica.";
 
 const contact = {
   email: "gottlieb.bustos@gmail.com",
@@ -11,7 +11,7 @@ const contact = {
   linkedin: "https://www.linkedin.com/in/gottlieb-bustos-schulze-34a289142"
 };
 
-const aboutText = "Soy Ingeniero Civil en Informática con más de 15 años de trayectoria profesional, especializado en liderar la transformación digital, la analítica y gobernanza de datos y la dirección estratégica de operaciones institucionales. Me dedico a convertir grandes volúmenes de datos complejos e infraestructura tecnológica en sistemas eficientes y decisiones directivas de alto impacto, impulsado por la convicción de que la tecnología bien gestionada optimiza los recursos públicos y privados y mejora sustancialmente la calidad de vida de las personas. Logro estos resultados combinando un riguroso dominio técnico en modelamiento de bases de datos, IA y automatización con un liderazgo colaborativo, auditorías continuas y una planificación orientada a la excelencia operacional.";
+const aboutText = "Soy Ingeniero Civil en Informática con más de 15 años de experiencia liderando analítica de datos, control de gestión TI y modernización institucional. Transformo grandes volúmenes de información compleja en decisiones estratégicas de alto impacto mediante arquitectura relacional, procesos automatizados e inteligencia artificial. Mi labor busca optimizar la eficiencia operativa resguardando el valor del servicio público hacia las personas, aplicando siempre metodologías analíticas rigurosas, mejora continua y un liderazgo cercano enfocado en resultados.";
 
 const skills = [
   { name: "Liderazgo Estratégico", icon: "fa-chart-line" },
@@ -170,6 +170,7 @@ const education = [
         <a href="#experiencia">Experiencia</a>
         <a href="#certificaciones">Certificaciones</a>
         <a href="#formacion">Formación</a>
+        <a href="#contacto">Contacto</a>
       </div>
     </nav>
   </header>
@@ -177,30 +178,12 @@ const education = [
   <div class="main-wrapper">
     <!-- Hero -->
     <section class="hero-block">
+      <h1 class="hero-name">Gottlieb Bustos Schulze</h1>
       <div class="badge-wrapper">
         <span class="hero-badge">Ingeniero Civil en Informática</span>
       </div>
-      <h1 class="hero-name">Gottlieb Bustos Schulze</h1>
       <h2 class="hero-role">Analítica de Datos · Control de Gestión TI · Dirección Estratégica</h2>
       <p class="hero-desc">{description}</p>
-
-      <div class="contact-grid">
-        <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" class="contact-pill contact-pill-linkedin">
-          <i class="fa-brands fa-linkedin"></i> <span>LinkedIn</span>
-        </a>
-        <a href={`mailto:${contact.email}`} class="contact-pill">
-          <i class="fa-solid fa-envelope"></i> <span>{contact.email}</span>
-        </a>
-        <a href={`tel:${contact.phone.replace(/\s+/g, '')}`} class="contact-pill">
-          <i class="fa-solid fa-phone"></i> <span>{contact.phone}</span>
-        </a>
-        <span class="contact-pill">
-          <i class="fa-solid fa-location-dot"></i> <span>{contact.location}</span>
-        </span>
-        <span class="contact-pill">
-          <i class="fa-solid fa-language"></i> <span>{contact.languages}</span>
-        </span>
-      </div>
     </section>
 
     <!-- Sobre Mí -->
@@ -285,6 +268,31 @@ const education = [
         ))}
       </div>
     </section>
+
+    <!-- Contacto al Final -->
+    <section class="content-section" id="contacto">
+      <h2 class="heading-decorated">Contacto</h2>
+      <div class="contact-panel">
+        <p class="contact-intro">Disponible para nuevos desafíos profesionales y consultas técnicas.</p>
+        <div class="contact-grid">
+          <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" class="contact-pill contact-pill-linkedin">
+            <i class="fa-brands fa-linkedin"></i> <span>LinkedIn</span>
+          </a>
+          <a href={`mailto:${contact.email}`} class="contact-pill">
+            <i class="fa-solid fa-envelope"></i> <span>{contact.email}</span>
+          </a>
+          <a href={`tel:${contact.phone.replace(/\s+/g, '')}`} class="contact-pill">
+            <i class="fa-solid fa-phone"></i> <span>{contact.phone}</span>
+          </a>
+          <span class="contact-pill">
+            <i class="fa-solid fa-location-dot"></i> <span>{contact.location}</span>
+          </span>
+          <span class="contact-pill">
+            <i class="fa-solid fa-language"></i> <span>{contact.languages}</span>
+          </span>
+        </div>
+      </div>
+    </section>
   </div>
 
   <footer class="portfolio-footer">
@@ -367,26 +375,26 @@ const education = [
     margin-bottom: 3.5rem !important;
   }
 
-  .badge-wrapper {
-    margin-bottom: 1rem;
-  }
-
-  .hero-badge {
-    background: rgba(56, 189, 248, 0.12);
-    color: #38bdf8;
-    font-size: 0.85rem;
-    font-weight: 600;
-    padding: 0.4rem 1rem;
-    border-radius: 9999px;
-    display: inline-block;
-  }
-
   .hero-name {
     font-size: 2.6rem !important;
     font-weight: 800 !important;
     color: #ffffff !important;
     margin: 0 0 0.5rem 0 !important;
     line-height: 1.2 !important;
+  }
+
+  .badge-wrapper {
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-badge {
+    background: rgba(56, 189, 248, 0.12);
+    color: #38bdf8;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 0.4rem 1.1rem;
+    border-radius: 9999px;
+    display: inline-block;
   }
 
   .hero-role {
@@ -401,54 +409,7 @@ const education = [
     color: #94a3b8;
     font-size: 1.05rem;
     line-height: 1.7;
-    margin: 0 0 2rem 0;
-  }
-
-  /* Contact Chips */
-  .contact-grid {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
-    gap: 0.85rem !important;
-    margin-top: 0.5rem !important;
-  }
-
-  .contact-pill {
-    background: #1e293b !important;
-    border: 1px solid #334155 !important;
-    color: #f8fafc !important;
-    padding: 0.55rem 1rem !important;
-    border-radius: 8px !important;
-    font-size: 0.9rem !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    gap: 0.5rem !important;
-    text-decoration: none !important;
-    transition: all 0.2s ease;
-  }
-
-  .contact-pill:hover {
-    border-color: #38bdf8 !important;
-    transform: translateY(-2px);
-  }
-
-  .contact-pill-linkedin {
-    background: rgba(10, 102, 194, 0.15) !important;
-    border-color: #0a66c2 !important;
-    color: #60a5fa !important;
-  }
-
-  .contact-pill-linkedin:hover {
-    background: rgba(10, 102, 194, 0.25) !important;
-    border-color: #38bdf8 !important;
-  }
-
-  .contact-pill i {
-    color: #38bdf8;
-  }
-
-  .contact-pill-linkedin i {
-    color: #60a5fa;
+    margin: 0;
   }
 
   /* Content Sections */
@@ -492,7 +453,7 @@ const education = [
     background: #1e293b;
     border: 1px solid #334155;
     border-left: 4px solid #38bdf8;
-    padding: 1.75rem 2rem;
+    padding: 1.5rem 1.75rem;
     border-radius: 12px;
     margin-top: 1.5rem;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
@@ -500,8 +461,8 @@ const education = [
 
   .about-paragraph {
     color: #cbd5e1;
-    font-size: 1.05rem;
-    line-height: 1.8;
+    font-size: 1rem;
+    line-height: 1.75;
     margin: 0;
   }
 
@@ -701,6 +662,67 @@ const education = [
     color: #94a3b8;
     font-size: 0.85rem;
     margin: 0;
+  }
+
+  /* Contact Panel */
+  .contact-panel {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+
+  .contact-intro {
+    color: #94a3b8;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-grid {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 0.85rem !important;
+  }
+
+  .contact-pill {
+    background: #0f172a !important;
+    border: 1px solid #334155 !important;
+    color: #f8fafc !important;
+    padding: 0.6rem 1.1rem !important;
+    border-radius: 8px !important;
+    font-size: 0.9rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease;
+  }
+
+  .contact-pill:hover {
+    border-color: #38bdf8 !important;
+    transform: translateY(-2px);
+  }
+
+  .contact-pill-linkedin {
+    background: rgba(10, 102, 194, 0.15) !important;
+    border-color: #0a66c2 !important;
+    color: #60a5fa !important;
+  }
+
+  .contact-pill-linkedin:hover {
+    background: rgba(10, 102, 194, 0.25) !important;
+    border-color: #38bdf8 !important;
+  }
+
+  .contact-pill i {
+    color: #38bdf8;
+  }
+
+  .contact-pill-linkedin i {
+    color: #60a5fa;
   }
 
   .portfolio-footer {
