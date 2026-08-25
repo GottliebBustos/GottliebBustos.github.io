@@ -24,7 +24,6 @@ const skills = [
   { name: "Planificación Operativa", icon: "fa-clipboard-check" }
 ];
 
-// Todas las certificaciones configuradas con sus PDFs locales:
 const certifications = [
   {
     name: "AI Skills Fest 2026",
@@ -144,15 +143,57 @@ const experiences = [
   }
 ];
 
+// Formación Académica y Diplomados con enlaces a PDFs:
 const education = [
-  { year: "2010 - 2014", title: "Ingeniería Civil en Informática", inst: "Universidad Tecnológica de Chile INACAP", highlight: true },
-  { year: "Jun 2024", title: "Diplomado en Dirección Estratégica", inst: "Universidad Autónoma de Chile" },
-  { year: "Nov 2023", title: "Diplomado en Entorno Estratégico", inst: "Universidad Autónoma de Chile" },
-  { year: "Sep 2023", title: "Diplomado de Salud Pública", inst: "Capacitanet" },
-  { year: "Nov 2022", title: "Diplomado en Dirección de Personas en Gobiernos Locales", inst: "Universidad del Desarrollo" },
-  { year: "May 2020", title: "Diplomado de Gestión en Establecimientos de Salud", inst: "Incapnova Ltda." },
-  { year: "Ene 2019", title: "Diplomado en Salud Familiar", inst: "Incapnova Ltda." },
-  { year: "May 2015", title: "Diplomado en Administración de Base de Datos", inst: "Universidad Tecnológica de Chile INACAP" }
+  { 
+    year: "2010 - 2014", 
+    title: "Ingeniería Civil en Informática", 
+    inst: "Universidad Tecnológica de Chile INACAP", 
+    highlight: true,
+    file: "/titulos/titulo-ingeniero-civil-informatica.pdf"
+  },
+  { 
+    year: "Jun 2024", 
+    title: "Diplomado en Dirección Estratégica", 
+    inst: "Universidad Autónoma de Chile",
+    file: "/titulos/diplomado-direccion-estrategica.pdf"
+  },
+  { 
+    year: "Nov 2023", 
+    title: "Diplomado en Entorno Estratégico", 
+    inst: "Universidad Autónoma de Chile",
+    file: "/titulos/diplomado-entorno-estrategico.pdf"
+  },
+  { 
+    year: "Sep 2023", 
+    title: "Diplomado de Salud Pública", 
+    inst: "Capacitanet",
+    file: "/titulos/diplomado-salud-publica.pdf"
+  },
+  { 
+    year: "Nov 2022", 
+    title: "Diplomado en Dirección de Personas en Gobiernos Locales", 
+    inst: "Universidad del Desarrollo",
+    file: "/titulos/diplomado-direccion-personas.pdf"
+  },
+  { 
+    year: "May 2020", 
+    title: "Diplomado de Gestión en Establecimientos de Salud", 
+    inst: "Incapnova Ltda.",
+    file: "/titulos/diplomado-gestion-salud.pdf"
+  },
+  { 
+    year: "Ene 2019", 
+    title: "Diplomado en Salud Familiar", 
+    inst: "Incapnova Ltda.",
+    file: "/titulos/diplomado-salud-familiar.pdf"
+  },
+  { 
+    year: "May 2015", 
+    title: "Diplomado en Administración de Base de Datos", 
+    inst: "Universidad Tecnológica de Chile INACAP",
+    file: "/titulos/diplomado-bases-datos.pdf"
+  }
 ];
 ---
 
@@ -237,7 +278,7 @@ const education = [
       </div>
     </section>
 
-    <!-- Certificaciones (Con visor PDF modal) -->
+    <!-- Certificaciones -->
     <section class="content-section" id="certificaciones">
       <div class="section-header-flex">
         <div>
@@ -257,7 +298,7 @@ const education = [
             <div class="cert-details">
               <button 
                 type="button" 
-                class="cert-title-btn" 
+                class="doc-trigger-btn" 
                 data-file={cert.file}
                 data-name={cert.name}
                 data-issuer={cert.issuer}
@@ -276,14 +317,32 @@ const education = [
       </div>
     </section>
 
-    <!-- Formación -->
+    <!-- Formación Académica & Diplomados (Con visor PDF modal) -->
     <section class="content-section" id="formacion">
-      <h2 class="heading-decorated">Formación Académica & Diplomados</h2>
+      <div class="section-header-flex">
+        <div>
+          <h2 class="heading-decorated">Formación Académica & Diplomados</h2>
+          <p class="section-hint">Haz clic en el título de un grado o diplomado para abrir su diploma/certificado en PDF.</p>
+        </div>
+      </div>
       <div class="edu-card-grid">
         {education.map((edu) => (
-          <div class={`edu-item-box ${edu.highlight ? 'edu-highlight' : ''}`}>
+          <div class={`edu-item-box ${edu.highlight ? 'edu-highlight' : ''} ${edu.file ? 'edu-interactive' : ''}`}>
             <span class="edu-item-year">{edu.year}</span>
-            <h3 class="edu-item-title">{edu.title}</h3>
+            {edu.file ? (
+              <button 
+                type="button" 
+                class="doc-trigger-btn edu-title-btn" 
+                data-file={edu.file}
+                data-name={edu.title}
+                data-issuer={edu.inst}
+              >
+                <span>{edu.title}</span>
+                <i class="fa-solid fa-file-pdf cert-doc-icon" title="Ver diploma PDF"></i>
+              </button>
+            ) : (
+              <h3 class="edu-item-title">{edu.title}</h3>
+            )}
             <p class="edu-item-inst">{edu.inst}</p>
           </div>
         ))}
@@ -316,12 +375,12 @@ const education = [
     </section>
   </div>
 
-  <!-- Modal Visor de Certificados en PDF -->
-  <div class="modal-backdrop" id="cert-modal" aria-hidden="true">
+  <!-- Modal Visor Unificado de PDFs (Certificados y Títulos) -->
+  <div class="modal-backdrop" id="doc-modal" aria-hidden="true">
     <div class="modal-content">
       <div class="modal-header">
         <div>
-          <h3 id="modal-title" class="modal-title">Certificado</h3>
+          <h3 id="modal-title" class="modal-title">Documento</h3>
           <p id="modal-issuer" class="modal-subtitle"></p>
         </div>
         <div class="modal-actions">
@@ -344,7 +403,7 @@ const education = [
   </footer>
 
   <script>
-    const modal = document.getElementById('cert-modal');
+    const modal = document.getElementById('doc-modal');
     const modalTitle = document.getElementById('modal-title');
     const modalIssuer = document.getElementById('modal-issuer');
     const modalBody = document.getElementById('modal-body');
@@ -377,7 +436,8 @@ const education = [
       document.body.style.overflow = '';
     }
 
-    document.querySelectorAll('.cert-title-btn').forEach((btn) => {
+    // Escucha eventos tanto de certificados como de formación académica
+    document.querySelectorAll('.doc-trigger-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
         const file = btn.getAttribute('data-file');
         const name = btn.getAttribute('data-name');
@@ -660,28 +720,38 @@ const education = [
     line-height: 1.5;
   }
 
-  /* Certifications Grid */
-  .cert-grid {
+  /* Certifications & Education Items */
+  .cert-grid,
+  .edu-card-grid {
     display: grid !important;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)) !important;
     gap: 1.25rem !important;
     margin-top: 1.5rem;
   }
 
-  .cert-item-box {
+  .cert-item-box,
+  .edu-item-box {
     background: #1e293b;
     border: 1px solid #334155;
     padding: 1.25rem;
     border-radius: 10px;
-    display: flex;
-    gap: 1rem;
-    align-items: flex-start;
     transition: transform 0.2s, border-color 0.2s;
   }
 
-  .cert-interactive:hover {
+  .cert-item-box {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .cert-interactive:hover,
+  .edu-interactive:hover {
     border-color: #38bdf8;
     transform: translateY(-2px);
+  }
+
+  .edu-highlight {
+    border-left: 4px solid #38bdf8;
   }
 
   .cert-icon-wrap {
@@ -704,7 +774,8 @@ const education = [
     width: 100%;
   }
 
-  .cert-title-btn {
+  /* Trigger Buttons */
+  .doc-trigger-btn {
     background: none;
     border: none;
     padding: 0;
@@ -721,21 +792,45 @@ const education = [
     transition: color 0.2s;
   }
 
-  .cert-title-btn:hover {
+  .doc-trigger-btn:hover {
     color: #7dd3fc !important;
     text-decoration: underline;
+  }
+
+  .edu-title-btn {
+    margin-bottom: 0.25rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
   }
 
   .cert-doc-icon {
     font-size: 0.9rem;
     color: #ef4444; /* Rojo distintivo de PDF */
     opacity: 0.9;
+    flex-shrink: 0;
   }
 
-  .cert-issuer {
+  .cert-issuer,
+  .edu-item-inst {
     font-size: 0.85rem;
     color: #94a3b8;
     margin: 0;
+  }
+
+  .edu-item-year {
+    color: #818cf8;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .edu-item-title {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    color: #ffffff !important;
+    margin: 0 0 0.25rem 0 !important;
   }
 
   .cert-meta {
@@ -852,46 +947,6 @@ const education = [
     height: 100%;
     border: none;
     background: #ffffff;
-  }
-
-  /* Education Grid */
-  .edu-card-grid {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
-    gap: 1.25rem !important;
-    margin-top: 1.5rem;
-  }
-
-  .edu-item-box {
-    background: #1e293b;
-    border: 1px solid #334155;
-    padding: 1.25rem;
-    border-radius: 10px;
-  }
-
-  .edu-highlight {
-    border-left: 4px solid #38bdf8;
-  }
-
-  .edu-item-year {
-    color: #818cf8;
-    font-size: 0.8rem;
-    font-weight: 700;
-    display: block;
-    margin-bottom: 0.25rem;
-  }
-
-  .edu-item-title {
-    font-size: 1rem !important;
-    font-weight: 700 !important;
-    color: #ffffff !important;
-    margin: 0 0 0.25rem 0 !important;
-  }
-
-  .edu-item-inst {
-    color: #94a3b8;
-    font-size: 0.85rem;
-    margin: 0;
   }
 
   /* Contact Panel */
