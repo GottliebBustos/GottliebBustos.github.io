@@ -24,7 +24,7 @@ const skills = [
   { name: "Planificación Operativa", icon: "fa-clipboard-check" }
 ];
 
-// 👉 Asigna aquí la ruta del archivo PDF o imagen correspondiente:
+// Todas las certificaciones configuradas con sus PDFs locales:
 const certifications = [
   {
     name: "AI Skills Fest 2026",
@@ -73,14 +73,14 @@ const certifications = [
     issuer: "SENCE / Germán Varas y Asociados",
     date: "Sep 2015",
     id: "",
-    file: ""
+    file: "/certificados/trabajo-equipo-sence.pdf"
   },
   {
     name: "Decisiones Estratégicas",
     issuer: "Pontificia Universidad Católica de Chile",
     date: "Jun 2014",
     id: "",
-    file: ""
+    file: "/certificados/decisiones-estrategicas-uc.pdf"
   }
 ];
 
@@ -237,12 +237,12 @@ const education = [
       </div>
     </section>
 
-    <!-- Certificaciones -->
+    <!-- Certificaciones (Con visor PDF modal) -->
     <section class="content-section" id="certificaciones">
       <div class="section-header-flex">
         <div>
           <h2 class="heading-decorated">Licencias & Certificaciones</h2>
-          <p class="section-hint">Haz clic en el título de una certificación para ver su respaldo documental.</p>
+          <p class="section-hint">Haz clic en el título de una certificación para abrir y visualizar el certificado en PDF.</p>
         </div>
         <a href="https://www.linkedin.com/in/gottlieb-bustos-schulze-34a289142/details/certifications/" target="_blank" rel="noopener noreferrer" class="link-external">
           Ver en LinkedIn <i class="fa-solid fa-arrow-up-right-from-square"></i>
@@ -250,25 +250,21 @@ const education = [
       </div>
       <div class="cert-grid">
         {certifications.map((cert) => (
-          <div class={`cert-item-box ${cert.file ? 'cert-interactive' : ''}`}>
+          <div class="cert-item-box cert-interactive">
             <div class="cert-icon-wrap">
               <i class="fa-solid fa-award"></i>
             </div>
             <div class="cert-details">
-              {cert.file ? (
-                <button 
-                  type="button" 
-                  class="cert-title-btn" 
-                  data-file={cert.file}
-                  data-name={cert.name}
-                  data-issuer={cert.issuer}
-                >
-                  <span>{cert.name}</span>
-                  <i class="fa-solid fa-file-lines cert-doc-icon"></i>
-                </button>
-              ) : (
-                <h3 class="cert-title">{cert.name}</h3>
-              )}
+              <button 
+                type="button" 
+                class="cert-title-btn" 
+                data-file={cert.file}
+                data-name={cert.name}
+                data-issuer={cert.issuer}
+              >
+                <span>{cert.name}</span>
+                <i class="fa-solid fa-file-pdf cert-doc-icon" title="Ver documento PDF"></i>
+              </button>
               <p class="cert-issuer">{cert.issuer}</p>
               <div class="cert-meta">
                 <span class="cert-date">Expedición: {cert.date}</span>
@@ -320,7 +316,7 @@ const education = [
     </section>
   </div>
 
-  <!-- Modal Visor de Certificados -->
+  <!-- Modal Visor de Certificados en PDF -->
   <div class="modal-backdrop" id="cert-modal" aria-hidden="true">
     <div class="modal-content">
       <div class="modal-header">
@@ -329,7 +325,7 @@ const education = [
           <p id="modal-issuer" class="modal-subtitle"></p>
         </div>
         <div class="modal-actions">
-          <a id="modal-download" href="#" target="_blank" class="modal-btn" title="Abrir en pestaña nueva">
+          <a id="modal-download" href="#" target="_blank" class="modal-btn" title="Abrir / Descargar PDF">
             <i class="fa-solid fa-up-right-from-square"></i>
           </a>
           <button id="modal-close" type="button" class="modal-btn modal-close-btn" aria-label="Cerrar">
@@ -338,7 +334,7 @@ const education = [
         </div>
       </div>
       <div class="modal-body" id="modal-body">
-        <!-- Inyección dinámica de PDF o Imagen -->
+        <!-- Iframe del PDF inyectado dinámicamente -->
       </div>
     </div>
   </div>
@@ -362,21 +358,11 @@ const education = [
       modalIssuer.textContent = issuer;
       modalDownload.href = file;
 
-      const isPdf = file.toLowerCase().endsWith('.pdf');
       modalBody.innerHTML = '';
-
-      if (isPdf) {
-        const iframe = document.createElement('iframe');
-        iframe.src = file;
-        iframe.className = 'modal-iframe';
-        modalBody.appendChild(iframe);
-      } else {
-        const img = document.createElement('img');
-        img.src = file;
-        img.alt = name;
-        img.className = 'modal-img';
-        modalBody.appendChild(img);
-      }
+      const iframe = document.createElement('iframe');
+      iframe.src = file;
+      iframe.className = 'modal-iframe';
+      modalBody.appendChild(iframe);
 
       modal.classList.add('is-open');
       modal.setAttribute('aria-hidden', 'false');
@@ -741,16 +727,9 @@ const education = [
   }
 
   .cert-doc-icon {
-    font-size: 0.85rem;
-    opacity: 0.75;
-  }
-
-  .cert-title {
-    font-size: 1rem !important;
-    font-weight: 700 !important;
-    color: #ffffff !important;
-    margin: 0 !important;
-    line-height: 1.35;
+    font-size: 0.9rem;
+    color: #ef4444; /* Rojo distintivo de PDF */
+    opacity: 0.9;
   }
 
   .cert-issuer {
@@ -864,23 +843,15 @@ const education = [
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: auto;
-    padding: 1rem;
+    overflow: hidden;
+    padding: 0;
   }
 
   .modal-iframe {
     width: 100%;
     height: 100%;
     border: none;
-    border-radius: 6px;
     background: #ffffff;
-  }
-
-  .modal-img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-    border-radius: 6px;
   }
 
   /* Education Grid */
