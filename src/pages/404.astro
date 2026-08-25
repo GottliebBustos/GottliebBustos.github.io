@@ -1,12 +1,247 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
+// src/pages/404.astro
+const title = "404 - Página no encontrada | Gottlieb Bustos Schulze";
+const description = "La página o recurso que estás buscando no existe o ha sido reubicado.";
 ---
 
-<BaseLayout title = "404: Not Found" includeSidebar={false}>
-  <div class="text-center">
-    <h1 class="text-9xl font-bold mb-4">🏝</h1>
-    <h1 class="text-9xl font-bold mb-2">404</h1>
-    <h3 class="text-2xl">The page you're looking for couldn't be found.</h3>
-    <a class="btn btn-accent mt-9" href="/">Home</a>
-  </div>
-</BaseLayout>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="error-body">
+
+  <header class="portfolio-header">
+    <nav class="portfolio-nav">
+      <a href="/" class="nav-brand">Gottlieb Bustos S.</a>
+      <div class="nav-links">
+        <a href="/">Inicio</a>
+        <a href="/#sobre-mi">Sobre Mí</a>
+        <a href="/#experiencia">Experiencia</a>
+        <a href="/#certificaciones">Certificaciones</a>
+        <a href="/#contacto">Contacto</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="error-main">
+    <div class="error-card">
+      <span class="error-code">404</span>
+      <div class="badge-wrapper">
+        <span class="error-badge">Recurso no encontrado</span>
+      </div>
+      <h1 class="error-title">Página no disponible</h1>
+      <p class="error-desc">
+        La ruta a la que intentas acceder no existe, ha sido movida o el enlace ingresado es incorrecto.
+      </p>
+
+      <div class="actions-group">
+        <a href="/" class="btn-primary">
+          <i class="fa-solid fa-house"></i>
+          <span>Volver al Portafolio</span>
+        </a>
+        <a href="/#contacto" class="btn-secondary">
+          <i class="fa-solid fa-envelope"></i>
+          <span>Contactar</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="portfolio-footer">
+    <p>© 2026 Gottlieb Bustos Schulze · Portafolio Profesional</p>
+  </footer>
+
+</body>
+</html>
+
+<style is:global>
+  html, body.error-body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background-color: #0f172a !important;
+    color: #f8fafc !important;
+    font-family: 'Inter', sans-serif !important;
+    min-height: 100vh !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box !important;
+  }
+
+  .portfolio-header {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.95);
+    border-bottom: 1px solid #334155;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .portfolio-nav {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-brand {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #38bdf8;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .nav-links a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover {
+    color: #38bdf8;
+  }
+
+  /* Main Error Container */
+  .error-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+  }
+
+  .error-card {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    max-width: 580px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .error-code {
+    font-size: 5rem;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -2px;
+    color: transparent;
+    background: linear-gradient(135deg, #38bdf8, #818cf8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .badge-wrapper {
+    margin-bottom: 1.25rem;
+  }
+
+  .error-badge {
+    background: rgba(239, 68, 68, 0.12);
+    color: #f87171;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.35rem 0.9rem;
+    border-radius: 9999px;
+    display: inline-block;
+    border: 1px solid rgba(239, 68, 68, 0.25);
+  }
+
+  .error-title {
+    font-size: 1.85rem !important;
+    font-weight: 800 !important;
+    color: #ffffff !important;
+    margin: 0 0 0.75rem 0 !important;
+    line-height: 1.25;
+  }
+
+  .error-desc {
+    color: #94a3b8;
+    font-size: 1rem;
+    line-height: 1.65;
+    margin: 0 0 2rem 0;
+  }
+
+  .actions-group {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1.4rem;
+    border-radius: 8px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary {
+    background: #0284c7;
+    color: #ffffff;
+    border: 1px solid #38bdf8;
+  }
+
+  .btn-primary:hover {
+    background: #0369a1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3);
+  }
+
+  .btn-secondary {
+    background: #0f172a;
+    color: #f8fafc;
+    border: 1px solid #334155;
+  }
+
+  .btn-secondary:hover {
+    border-color: #38bdf8;
+    color: #38bdf8;
+    transform: translateY(-2px);
+  }
+
+  .portfolio-footer {
+    border-top: 1px solid #334155;
+    padding: 1.5rem;
+    text-align: center;
+    color: #94a3b8;
+    font-size: 0.85rem;
+  }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .error-card { padding: 2rem 1.25rem; }
+    .error-code { font-size: 4rem; }
+    .error-title { font-size: 1.5rem !important; }
+    .actions-group { flex-direction: column; }
+    .btn-primary, .btn-secondary { justify-content: center; width: 100%; }
+  }
+</style>
